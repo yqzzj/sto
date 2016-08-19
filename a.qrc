@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/1-1229115491GHkw.jpg</file>
+        <file>icons/2011082825257.jpg</file>
+        <file alias="download">icons/down.ico</file>
+        <file alias="refresh">icons/refresh.ico</file>
+        <file alias="start">icons/start.ico</file>
+        <file alias="stop">icons/stop.ico</file>
+        <file>icons/search.ico</file>
+        <file alias="recover">icons/recover.ico</file>
+        <file alias="exit">icons/exit.ico</file>
+        <file alias="setting">icons/gear.ico</file>
+        <file>icons/edit.ico</file>
+        <file>icons/filenew.ico</file>
+        <file>icons/bookmark_folder.ico</file>
+        <file>icons/editpaste.ico</file>
+        <file>icons/SkinButton.png</file>
+        <file>icons/sys_button_close.png</file>
+        <file>icons/sys_button_max.png</file>
+        <file>icons/sys_button_min.png</file>
+        <file>icons/title_bar_menu.png</file>
+    </qresource>
+</RCC>
