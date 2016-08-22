@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initLineEdit();
 
     this->setCentralWidget(w);
-    this->setWindowTitle("sto_2.1");
+    this->setWindowTitle("sto_2.2");
 
     initStatusBar();
     ui->actionSaveModel->setVisible(false);

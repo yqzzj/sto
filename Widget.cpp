@@ -152,45 +152,74 @@ void Widget::setItemEnabled(bool en)
 void Widget::recorveValues()
 {
     ui->doubleSpinBox_todayUp->setValue(0.08);
+    on_doubleSpinBox_todayUp_valueChanged(0.08);
     ui->doubleSpinBox_yestodayDown->setValue(0.05);
+    on_doubleSpinBox_yestodayDown_valueChanged(0.05);
     ui->doubleSpinBox_yestodayUp->setValue(0.00);
+    on_doubleSpinBox_yestodayUp_valueChanged(0.00);
 
     ui->checkBox_1->setChecked(true);
+    on_checkBox_1_clicked(true);
     ui->checkBox1_M->setValue(6);
+    on_checkBox1_M_valueChanged(6);
     ui->checkBox1_N->setValue(3);
+    on_checkBox1_N_valueChanged(3);
 
     ui->checkBox_2->setChecked(true);
+    on_checkBox_2_clicked(true);
     ui->checkBox2_M->setValue(6);
+    on_checkBox2_M_valueChanged(6);
     ui->checkBox2_N->setValue(2);
+    on_checkBox2_N_valueChanged(2);
     ui->checkBox2_X->setValue(0.04);
+    on_checkBox2_X_valueChanged(0.04);
 
     ui->checkBox_3->setChecked(true);
+    on_checkBox_3_clicked(true);
     ui->checkBox3_M->setValue(6);
+    on_checkBox3_M_valueChanged(6);
     ui->checkBox3_X->setValue(0.1);
+    on_checkBox3_X_valueChanged(0.1);
 
     ui->checkBox_4->setChecked(true);
+    on_checkBox_4_clicked(true);
     ui->doubleSpinBox_swing->setValue(0.125);
+    on_doubleSpinBox_swing_valueChanged(0.125);
 
     ui->checkBox_5->setChecked(true);
+    on_checkBox_5_clicked(true);
 
     ui->checkBox_6->setChecked(true);
+    on_checkBox_6_clicked(true);
     ui->lbValue->setValue(2);
+    on_lbValue_valueChanged(2);
 
     ui->doubleSpinBox_todayDown->setValue(0.1);
+    on_doubleSpinBox_todayDown_valueChanged(0.1);
 
     ui->checkBox_9->setChecked(false);
+    on_checkBox_9_clicked(false);
     ui->checkBox9_M->setValue(10);
+    on_checkBox9_M_valueChanged(10);
 
     ui->checkBox_7->setChecked(true);
+    on_checkBox_7_clicked(true);
     ui->hslValue->setValue(0.04);
+    on_hslValue_valueChanged(0.04);
 
     ui->checkBox_10->setChecked(true);
+    on_checkBox_10_clicked(true);
     ui->hsl10n->setValue(3);
+    on_hsl10n_valueChanged(3);
     ui->hsl10x->setValue(0.04);
+    on_hsl10x_valueChanged(0.04);
 
     ui->checkBox_11->setChecked(true);
+    on_checkBox_11_clicked(true);
     ui->hsl11n->setValue(3);
+    on_hsl11n_valueChanged(3);
     ui->hsl11x->setValue(20);
+    on_hsl11x_valueChanged(20);
 }
 
 void Widget::on_doubleSpinBox_yestodayDown_valueChanged(double arg1)

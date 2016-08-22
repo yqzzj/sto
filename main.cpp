@@ -1,5 +1,4 @@
 ﻿#include "MainWindow.h"
-#include "getnettime.h"
 
 #include <QApplication>
 #include <QFile>
@@ -12,6 +11,7 @@
 #include <QTcpSocket>
 #include <QDateTime>
 
+#if QT_VERSION < 0x050000
 void qDebugMsgHandler(QtMsgType type, const char *msg)
 {
     QString typeStr = "";
@@ -47,6 +47,43 @@ void qDebugMsgHandler(QtMsgType type, const char *msg)
    // logFile.flush();
    // logFile.close();
 }
+#else
+void qDebugMsgHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    QString typeStr = "";
+    switch (type)
+    {
+        case QtDebugMsg:
+        {
+            typeStr = "[debug]";
+            break;
+        }
+        case QtWarningMsg:
+        {
+            typeStr = "[warning]";
+            break;
+        }
+        case QtCriticalMsg:
+        {
+            typeStr = "[critical]";
+            break;
+        }
+        case QtFatalMsg:
+        {
+            typeStr = "[fatal]";
+            break;
+        }
+    }
+
+    QFile appLogFile("stock.log");
+    appLogFile.open(QIODevice::WriteOnly | QIODevice::Append);
+    QTextStream ts(&appLogFile);
+    ts << QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz")
+       << " " << typeStr << " " << msg << endl << endl;
+   // logFile.flush();
+   // logFile.close();
+}
+#endif
 
 int main(int argc, char *argv[])
 {
@@ -70,6 +107,7 @@ int main(int argc, char *argv[])
     QTranslator appTranslator;
     appTranslator.load("./language/qt_zh_CN.qm");
     a.installTranslator(&appTranslator);
+
 #if QT_VERSION < 0x050000
     qInstallMsgHandler(qDebugMsgHandler);
 #else

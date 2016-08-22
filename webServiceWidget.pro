@@ -30,8 +30,7 @@ SOURCES += main.cpp\
     toolbutton.cpp \
     stackedwidget.cpp \
     pushbutton.cpp \
-    sysbutton.cpp \
-    getnettime.cpp
+    sysbutton.cpp
 
 HEADERS  += Widget.h \
     webServiceForm.h \
@@ -44,8 +43,7 @@ HEADERS  += Widget.h \
     toolbutton.h \
     stackedwidget.h \
     pushbutton.h \
-    sysbutton.h \
-    getnettime.h
+    sysbutton.h
 
 FORMS    += Widget.ui \
     MainWindow.ui
