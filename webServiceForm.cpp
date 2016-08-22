@@ -69,6 +69,19 @@ void webServiceForm::downloadFile()
     manager->get(request);
 }
 
+void webServiceForm::getDataFromFtp()
+{
+    QUrl url;
+    url.setScheme(scheme);
+    url.setUserName(userName);
+    url.setPassword(password);
+    url.setHost(host);
+    url.setPort(port);
+    url.setPath(path);
+    QNetworkRequest request(url);
+    manager->get(request);
+}
+
 void webServiceForm::setFindStockStation1(stockFindStation station)
 {
     m_station1 = station;
@@ -426,6 +439,11 @@ void webServiceForm::onFinished(QNetworkReply *reply)
     }
 }
 
+void webServiceForm::ftpDownLoad(QNetworkReply *reply)
+{
+
+}
+
 void webServiceForm::init()
 {
     m_station1 = GREATERTHAN;
@@ -465,6 +483,9 @@ void webServiceForm::init()
     initRecentStockRecord();
     this->manager = new QNetworkAccessManager;
     connect(manager, SIGNAL(finished(QNetworkReply*)),
+            this, SLOT(onFinished(QNetworkReply *)));
+    this->ftpDownLoader = new QNetworkAccessManager;
+    connect(ftpDownLoader, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(onFinished(QNetworkReply *)));
 }
 

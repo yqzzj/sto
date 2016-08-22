@@ -17,6 +17,14 @@ const QString dailyLimitUpStocksFileDir = "./dailyLimitUpStocks/";
 //记录跌停股票的文件目录
 const QString dailyLimitDownStocksFileDir = "./dailyLimitDownStocks/";
 
+//ftp参数
+const QString scheme("ftp");
+const QString userName("StoFTPData");
+const QString password("Sto123456");
+const QString host("139.196.47.109");
+const int port(21);
+const QString path("/home/StoFTPData/assistStocks");
+
 enum stockFindStation
 {
     GREATERTHAN = 0,
