@@ -19,5 +19,6 @@
         <file>icons/sys_button_max.png</file>
         <file>icons/sys_button_min.png</file>
         <file>icons/title_bar_menu.png</file>
+        <file alias="sto">icons/sto.png</file>
     </qresource>
 </RCC>

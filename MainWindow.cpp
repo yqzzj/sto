@@ -206,7 +206,7 @@ void MainWindow::createTrayIcon()
     trayIconMenu = new QMenu(this);
     trayIcon->setContextMenu(trayIconMenu);
     trayIcon->setToolTip(tr("sto"));
-    trayIcon->setIcon(QIcon("./images/sto.png"));
+    trayIcon->setIcon(QIcon(":icons/sto"));
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(trayIconActivated(QSystemTrayIcon::ActivationReason)));
     trayIcon->show();

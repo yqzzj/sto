@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
     qInstallMessageHandler(qDebugMsgHandler);
 #endif
 
-    a.setWindowIcon(QIcon("./images/sto.png"));
+    a.setWindowIcon(QIcon(":icons/sto"));
 
 //    QSplashScreen splash(QPixmap(":/images/sto.png"), 0);
 //    splash.show();
@@ -91,8 +91,6 @@ int main(int argc, char *argv[])
 //        qssFile.close();
 //    }
 
-    GetNetTime getTime;
-    getTime.isOutOfTime();
     MainWindow m;
 //    splash.finish(&m);
     m.show();
