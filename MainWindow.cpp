@@ -273,3 +273,13 @@ void MainWindow::toggleHidden()
         hide();
     }
 }
+
+void MainWindow::on_ftpDown_triggered()
+{
+    w->refreshFtpData();
+}
+
+void MainWindow::on_ftpUp_triggered()
+{
+    w->uploadFtpData();
+}

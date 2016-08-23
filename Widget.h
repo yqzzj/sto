@@ -24,6 +24,10 @@ public:
 
     void hideSetting(bool is);
 
+    //ftp操作
+    void refreshFtpData();
+    void uploadFtpData();
+
 protected:
     void closeEvent(QCloseEvent *event);
 

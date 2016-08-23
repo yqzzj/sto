@@ -47,6 +47,10 @@ private slots:
     void trayIconActivated(QSystemTrayIcon::ActivationReason reason);
     void toggleHidden();
 
+    void on_ftpDown_triggered();
+
+    void on_ftpUp_triggered();
+
 private:
     Ui::MainWindow *ui;
 

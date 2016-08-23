@@ -25,7 +25,10 @@ public:
     void clearStoRecordIdList();
 
     void downloadFile();
+
+    //ftp操作
     void getDataFromFtp();
+    void putDataToFtp();
 
     void getFindStockStation1(stockFindStation &station, double value);
 
@@ -128,7 +131,10 @@ signals:
 
 private slots:
     void onFinished(QNetworkReply *reply);
+
+    //ftp操作
     void ftpDownLoad(QNetworkReply *reply);
+    void ftpUpLoad(QNetworkReply *reply);
 
 private:
     void init();
@@ -184,7 +190,10 @@ private:
     bool yesterdayValueLessThan(const stockData &stock);
 
     QNetworkAccessManager *manager;
+
+    //ftp操作
     QNetworkAccessManager *ftpDownLoader;
+    QNetworkAccessManager *ftpUpLoader;
 
     //股票实时数据
     QMap<QString, stockData> stockDataMap;

@@ -36,6 +36,12 @@ webServiceForm::~webServiceForm()
     if(manager != NULL){
         delete manager;
     }
+    if(ftpDownLoader != NULL){
+        delete ftpDownLoader;
+    }
+    if(ftpUpLoader != NULL){
+        delete ftpUpLoader;
+    }
 }
 
 void webServiceForm::clearStoRecordIdList()
@@ -65,6 +71,7 @@ void webServiceForm::downloadFile()
     }
 
     QUrl url(urlStr);
+
     QNetworkRequest request(url);
     manager->get(request);
 }
@@ -79,7 +86,31 @@ void webServiceForm::getDataFromFtp()
     url.setPort(port);
     url.setPath(path);
     QNetworkRequest request(url);
-    manager->get(request);
+    ftpDownLoader->get(request);
+}
+
+void webServiceForm::putDataToFtp()
+{
+    QFile file("./guben.txt");
+    QUrl url;
+    QByteArray data;
+
+    if(file.exists()){
+        qDebug() << "exist";
+        if(file.open(QIODevice::ReadOnly)){
+            qDebug() << "open ok";
+            data = file.readAll();
+        }
+        file.close();
+    }
+    url.setScheme(scheme);
+    url.setUserName(userName);
+    url.setPassword(password);
+    url.setHost(host);
+    url.setPort(port);
+    url.setPath(pathup);
+    QNetworkRequest request(url);
+    ftpUpLoader->put(request, data);
 }
 
 void webServiceForm::setFindStockStation1(stockFindStation station)
@@ -411,7 +442,7 @@ void webServiceForm::onFinished(QNetworkReply *reply)
 
     if(error != QNetworkReply::NoError){
         QMessageBox::information(NULL,tr("错误提示"),tr("从服务器获取数据错误。"));
-         qDebug() << "错误代码：" << error;
+        qDebug() << tr("错误代码：") << error;
         return;
     }
 
@@ -434,14 +465,42 @@ void webServiceForm::onFinished(QNetworkReply *reply)
         findBestStocks();
         if(isGoing){
             downloadFile();
-            //sleep(500);
         }
     }
+    reply->deleteLater();
 }
 
 void webServiceForm::ftpDownLoad(QNetworkReply *reply)
 {
+    QTextCodec *codec = QTextCodec::codecForName("GB2312");
+    QStringList stockDataList;
+    QNetworkReply::NetworkError error = reply->error();
 
+    if(error != QNetworkReply::NoError){
+        QMessageBox::information(NULL,tr("错误提示"),tr("从服务器获取数据错误。"));
+        qDebug() << tr("错误代码：") << error;
+        return;
+    }
+
+    while(!reply->atEnd()){
+        stockDataList.append(codec->toUnicode(reply->readLine()));
+    }
+
+    qDebug() << stockDataList;
+    reply->deleteLater();
+}
+
+void webServiceForm::ftpUpLoad(QNetworkReply *reply)
+{
+    qDebug() << "ftpUplod over";
+    QNetworkReply::NetworkError error = reply->error();
+
+    if(error != QNetworkReply::NoError){
+        QMessageBox::information(NULL,tr("错误提示"),tr("从服务器获取数据错误。"));
+        qDebug() << tr("错误代码：") << error;
+        return;
+    }
+    reply->deleteLater();
 }
 
 void webServiceForm::init()
@@ -484,9 +543,14 @@ void webServiceForm::init()
     this->manager = new QNetworkAccessManager;
     connect(manager, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(onFinished(QNetworkReply *)));
+
+    //ftp操作
     this->ftpDownLoader = new QNetworkAccessManager;
     connect(ftpDownLoader, SIGNAL(finished(QNetworkReply*)),
-            this, SLOT(onFinished(QNetworkReply *)));
+            this, SLOT(ftpDownLoad(QNetworkReply *)));
+    this->ftpUpLoader = new QNetworkAccessManager;
+    connect(ftpUpLoader, SIGNAL(finished(QNetworkReply*)),
+            this, SLOT(ftpUpLoad(QNetworkReply *)));
 }
 
 void webServiceForm::initStockIdList()

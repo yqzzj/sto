@@ -77,6 +77,16 @@ void Widget::hideSetting(bool is)
     }
 }
 
+void Widget::refreshFtpData()
+{
+    m_webServiceForm->getDataFromFtp();
+}
+
+void Widget::uploadFtpData()
+{
+    m_webServiceForm->putDataToFtp();
+}
+
 void Widget::closeEvent(QCloseEvent *event)
 {
     (void)event;

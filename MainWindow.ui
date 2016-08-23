@@ -61,6 +61,8 @@
    <addaction name="separator"/>
    <addaction name="actionRecover"/>
    <addaction name="actionSetting"/>
+   <addaction name="ftpDown"/>
+   <addaction name="ftpUp"/>
    <addaction name="actionSaveModel"/>
    <addaction name="actionLoadModel"/>
    <addaction name="separator"/>
@@ -207,14 +209,14 @@
     <string>F3</string>
    </property>
   </action>
-  <action name="actionSsss">
+  <action name="ftpDown">
    <property name="text">
-    <string>ssss</string>
+    <string>更新</string>
    </property>
   </action>
-  <action name="actionSsssd">
+  <action name="ftpUp">
    <property name="text">
-    <string>ssssd</string>
+    <string>上传</string>
    </property>
   </action>
  </widget>
