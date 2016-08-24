@@ -154,16 +154,10 @@ private:
     void findBestStocks();
     //从一次查询后的股票数据中找到辅助股票
     void findAssistStocks(QStringList stockDataList);
-    //从一次查询后的股票数据中找到涨停跌停的股票
-    void findDailyLimitStocks();
     //购买股票
     void buyBestStocks();
     //记录辅助股票
     void recordAssistStocks();
-    //记录涨停股票
-    void recordDailyLimitStock(const QString &dir);
-    //记录跌停股票
-    void recordDailyLimitDownStock();
     //卖掉股票
     void saleBestStocks();
     //某只股票是否已经购买
@@ -172,8 +166,6 @@ private:
     bool isStockAssisted(stockData stock);
     //昨日辅助文件中是否记录了这只股票
     bool isStockInYestodayAssistFile(stockData stock);
-    //判断股票在某天是否涨跌停
-    bool isDailyLimit(stockData stock, date day, dailyLimitType type);
     //判断传入的路径文件中是否含有某只股票信息
     bool isHasRecord(const QString &path, stockData stock);
 

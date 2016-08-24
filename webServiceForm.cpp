@@ -26,8 +26,6 @@ webServiceForm::webServiceForm(QWidget *parent) :
     //打开软件时首先创建出今天的交易文件，昨日某涨幅的辅助文件，涨停文件，跌停文件
     //getFilePath(stocksBoughtFileDir);
     getFilePath(assistStocksFileDir);
-    getFilePath(dailyLimitUpStocksFileDir);
-    getFilePath(dailyLimitDownStocksFileDir);
     init();
 }
 
@@ -89,28 +87,55 @@ void webServiceForm::getDataFromFtp()
     ftpDownLoader->get(request);
 }
 
+static int fileNo = -1;
 void webServiceForm::putDataToFtp()
 {
-    QFile file("./guben.txt");
     QUrl url;
-    QByteArray data;
-
-    if(file.exists()){
-        qDebug() << "exist";
-        if(file.open(QIODevice::ReadOnly)){
-            qDebug() << "open ok";
-            data = file.readAll();
-        }
-        file.close();
-    }
     url.setScheme(scheme);
     url.setUserName(userName);
     url.setPassword(password);
     url.setHost(host);
     url.setPort(port);
-    url.setPath(pathup);
-    QNetworkRequest request(url);
-    ftpUpLoader->put(request, data);
+
+    QDir d(assistStocksFileDir);
+    QFileInfoList infoList = d.entryInfoList(QDir::Files, QDir::Name);
+    int count = infoList.count();
+
+    if(fileNo == -1){
+        fileNo = count -2;
+    }
+    if(fileNo >= 0){
+        QString fileName = infoList.at(fileNo).fileName();
+        QString filePath = assistStocksFileDir +  fileName;
+        QFile file(filePath);
+        QByteArray data;
+        if(file.exists()){
+            qDebug() << "exist" << fileName;
+            if(file.open(QIODevice::ReadOnly)){
+                qDebug() << "open ok";
+                data = file.readAll();
+            }
+            file.close();
+        }
+        url.setPath(pathup + fileName);
+        qDebug() << "put path: " << pathup + fileName;
+        QNetworkRequest request(url);
+        ftpUpLoader->put(request, data);
+    }
+//    QFile file("./assistStocks/2016-07-25");
+//    QByteArray data;
+//    if(file.exists()){
+//        qDebug() << "exist";
+//        if(file.open(QIODevice::ReadOnly)){
+//            qDebug() << "open ok";
+//            data = file.readAll();
+//        }
+//        file.close();
+//    }
+//    url.setPath(pathup);
+//    qDebug() << "put path: " << pathup;
+//    QNetworkRequest request(url);
+//    ftpUpLoader->put(request, data);
 }
 
 void webServiceForm::setFindStockStation1(stockFindStation station)
@@ -498,8 +523,11 @@ void webServiceForm::ftpUpLoad(QNetworkReply *reply)
     if(error != QNetworkReply::NoError){
         QMessageBox::information(NULL,tr("错误提示"),tr("从服务器获取数据错误。"));
         qDebug() << tr("错误代码：") << error;
+        reply->deleteLater();
         return;
     }
+    fileNo -= 1;
+    putDataToFtp();
     reply->deleteLater();
 }
 
@@ -759,26 +787,6 @@ void webServiceForm::findAssistStocks(QStringList stockDataList)
     }
 }
 
-void webServiceForm::findDailyLimitStocks()
-{
-    dailyLimitUpStockList.clear();
-    dailyLimitDownStockList.clear();
-    foreach(const QString &key, stockDataMap.keys()){
-        stockData curStockData = stockDataMap.value(key);
-        if(curStockData.isDailyLimitUp()){
-            dailyLimitUpStockList.append(curStockData);
-        }else if(curStockData.isDailyLimitDown()){
-            dailyLimitDownStockList.append(curStockData);
-        }
-    }
-    if(!dailyLimitUpStockList.isEmpty()){
-        recordDailyLimitStock(dailyLimitUpStocksFileDir);
-    }
-    if(!dailyLimitDownStockList.isEmpty()){
-        recordDailyLimitStock(dailyLimitDownStocksFileDir);
-    }
-}
-
 void webServiceForm::buyBestStocks()
 {
     QString path = getFilePath(stocksBoughtFileDir);
@@ -818,53 +826,6 @@ void webServiceForm::recordAssistStocks()
     file.close();
 }
 
-void webServiceForm::recordDailyLimitStock(const QString &dir)
-{
-    QString path = getFilePath(dir);
-    QFile file(path);
-    QTextStream out(&file);
-    QList<stockData> dailyLimitStockList;
-    bool isRecord = false;
-
-    if(dir == dailyLimitUpStocksFileDir){
-        dailyLimitStockList = dailyLimitUpStockList;
-    }else{
-        dailyLimitStockList = dailyLimitDownStockList;
-    }
-
-    if(file.isOpen() || file.open(QIODevice::ReadWrite | QIODevice::Append)){
-        foreach(stockData stock, dailyLimitStockList){
-            if(dir == dailyLimitUpStocksFileDir){
-                if(!oldDailyLimitUpStockList.contains(stock.getStockId())){
-                    oldDailyLimitUpStockList.append(stock.getStockId());
-                    isRecord = true;
-                }
-            }else{
-                if(!oldDailyLimitDownStockList.contains(stock.getStockId())){
-                    oldDailyLimitDownStockList.append(stock.getStockId());
-                    isRecord = true;
-                }
-            }
-            //已经涨跌停的股票便不再记录
-            if(isRecord){
-                out << QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz ")
-                    << stock.getStockId() << " " << stock.getStockName().remove("\"") << " "
-                       << stock.getZrspj() << " " << stock.getJrkpj() << " " << stock.getDqj() << " "
-                    << stock.getStockDailyLimitAmount() << endl;
-            }
-        }
-    }else{
-        qDebug() << "DailyLimit文件打开失败。";
-        return;
-    }
-    file.close();
-}
-
-void webServiceForm::recordDailyLimitDownStock()
-{
-
-}
-
 void webServiceForm::saleBestStocks()
 {
 
@@ -891,36 +852,6 @@ bool webServiceForm::isStockAssisted(stockData stock)
 bool webServiceForm::isStockInYestodayAssistFile(stockData stock)
 {
     QString path = getFilePath(assistStocksFileDir, YESTERDAY);
-    return isHasRecord(path, stock);
-}
-
-bool webServiceForm::isDailyLimit(stockData stock, date day, dailyLimitType type)
-{
-    QString path;
-    switch(type){
-    case DAILYLIMITUP:
-        switch(day){
-        case TODAY:
-            path = getFilePath(dailyLimitUpStocksFileDir);
-            break;
-        case YESTERDAY:
-            path = getFilePath(dailyLimitUpStocksFileDir, YESTERDAY);
-            break;
-        }
-        break;
-    case DAILYLIMITDOWN:
-        switch(day){
-        case TODAY:
-            path = getFilePath(dailyLimitDownStocksFileDir);
-            break;
-        case YESTERDAY:
-            path = getFilePath(dailyLimitDownStocksFileDir, YESTERDAY);
-            break;
-        }
-        break;
-    default:
-        break;
-    }
     return isHasRecord(path, stock);
 }
 

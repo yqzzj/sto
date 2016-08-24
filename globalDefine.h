@@ -12,10 +12,6 @@ const QString stockDataFilePath = "./stockData";
 const QString stocksBoughtFileDir = "./boughtStocks/";
 //历史收盘数据
 const QString assistStocksFileDir = "./assistStocks/";
-//记录涨停股票的文件目录
-const QString dailyLimitUpStocksFileDir = "./dailyLimitUpStocks/";
-//记录跌停股票的文件目录
-const QString dailyLimitDownStocksFileDir = "./dailyLimitDownStocks/";
 
 //ftp参数
 const QString scheme("ftp");
@@ -24,7 +20,7 @@ const QString password("Sto123456");
 const QString host("139.196.47.109");
 const int port(21);
 const QString path("/home/StoFTPData/2016/test");
-const QString pathup("/home/StoFTPData/2016/upfile");
+const QString pathup("/home/StoFTPData/assistStocks/");
 
 enum stockFindStation
 {
