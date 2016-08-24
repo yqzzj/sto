@@ -15,7 +15,7 @@ RCC_DIR = ../tmp/rcc
 UI_HEADERS_DIR = ../tmp/ui
 MOC_DIR = ../tmp/moc
 OBJECTS_DIR = ../tmp/obj
-DESTDIR = ../sto
+DESTDIR = ../stoTarget
 
 
 SOURCES += main.cpp\
