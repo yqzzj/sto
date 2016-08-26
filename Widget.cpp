@@ -17,7 +17,7 @@ Widget::Widget(QWidget *parent):
     m_webServiceForm = new webServiceForm(this);
 
     showDataFromNumber = 1;
-    strList_result.append(tr("记录时间 股票代码 股票名称 昨日收盘价 今日开盘价 当前价 涨幅 量比"));
+    strList_result.append(tr("序号 记录时间 股票代码 股票名称 昨日收盘价 今日开盘价 当前价 涨幅 量比"));
 
     strListModel_result = new QStringListModel(this);
     strListModel_result->setStringList(strList_result);
@@ -269,10 +269,11 @@ void Widget::on_doubleSpinBox_yestodayDown_valueChanged(double arg1)
 void Widget::resultDataChanged(QList<stockData> stoList)
 {
     foreach(stockData stock, stoList){
-        QString str = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz ")
-                          + stock.getStockId() + " " + stock.getStockName().remove("\"") + " "
-                          + QString::number(stock.getZrspj()) + " " + QString::number(stock.getJrkpj()) + " "
-                          + QString::number(stock.getDqj()) + " " + QString::number(stock.getStockIncreaseAmount())
+        QString str = QString::number(strList_result.count()) + " "
+                        + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz ")
+                        + stock.getStockId() + " " + stock.getStockName().remove("\"") + " "
+                        + QString::number(stock.getZrspj()) + " " + QString::number(stock.getJrkpj()) + " "
+                        + QString::number(stock.getDqj()) + " " + QString::number(stock.getStockIncreaseAmount())
                 + " " + QString::number(m_webServiceForm->getLb(stock));
         strList_result.append(str);
     }
@@ -291,8 +292,8 @@ void Widget::on_listView_result_doubleClicked(const QModelIndex &index)
     if(row){
         QString result = strList_result.at(row);
         QStringList boughtStrList = result.split(" ");
-        QString stockId = boughtStrList.at(2);
-        QString stockName = boughtStrList.at(3);
+        QString stockId = boughtStrList.at(3);
+        QString stockName = boughtStrList.at(4);
         newProMoniOne(stockId, stockName);
     }
 }
@@ -377,7 +378,7 @@ void Widget::on_pushButton_downLoad_clicked()
 void Widget::on_pushButton_refresh_clicked()
 {
     strList_result.clear();
-    strList_result.append(tr("记录时间 股票代码 股票名称 昨日收盘价 今日开盘价 当前价 涨幅 量比"));
+    strList_result.append(tr("序号 记录时间 股票代码 股票名称 昨日收盘价 今日开盘价 当前价 涨幅 量比"));
     strListModel_result->setStringList(strList_result);
     m_webServiceForm->clearStoRecordIdList();
 }

@@ -19,7 +19,7 @@ const QString userName("StoFTPData");
 const QString password("Sto123456");
 const QString host("139.196.47.109");
 const int port(21);
-const QString path("/home/StoFTPData/2016/test");
+const QString path("/home/StoFTPData/test");
 const QString pathup("/home/StoFTPData/assistStocks/");
 
 enum stockFindStation

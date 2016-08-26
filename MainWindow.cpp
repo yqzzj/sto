@@ -27,8 +27,8 @@ MainWindow::MainWindow(QWidget *parent) :
     initStatusBar();
     ui->actionSaveModel->setVisible(false);
     ui->actionLoadModel->setVisible(false);
-    ui->ftpDown->setVisible(false);
-    ui->ftpUp->setVisible(false);
+//    ui->ftpDown->setVisible(false);
+//    ui->ftpUp->setVisible(false);
 }
 
 MainWindow::~MainWindow()
@@ -64,8 +64,8 @@ void MainWindow::on_actionRefresh_triggered()
 
 void MainWindow::on_actionStart_triggered()
 {
-    w->on_pushButton_start_clicked();
     statusLabel->setText(tr("正在监控股票实时数据···"));
+    w->on_pushButton_start_clicked();
 }
 
 void MainWindow::on_actionDownload_triggered()

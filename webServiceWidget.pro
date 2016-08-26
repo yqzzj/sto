@@ -17,7 +17,6 @@ MOC_DIR = ../tmp/moc
 OBJECTS_DIR = ../tmp/obj
 DESTDIR = ../stoTarget
 
-
 SOURCES += main.cpp\
         Widget.cpp \
     webServiceForm.cpp \

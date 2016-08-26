@@ -504,6 +504,7 @@ void webServiceForm::ftpDownLoad(QNetworkReply *reply)
     if(error != QNetworkReply::NoError){
         QMessageBox::information(NULL,tr("错误提示"),tr("从服务器获取数据错误。"));
         qDebug() << tr("错误代码：") << error;
+        reply->deleteLater();
         return;
     }
 
@@ -684,13 +685,22 @@ void webServiceForm::initStockRecordMap(QMap<QString, stockData> &stoMap, const 
     for(int i = 0; i < stockDataList.count(); ++i){
         //拆分为两个子串，第一个为var hq_str_sh601006，第二个为逗号分开的多个value
         QStringList stockIdAndValues = stockDataList.at(i).split("=");
-        if(stockIdAndValues.count() != 2) continue;
+        if(stockIdAndValues.count() != 2){
+            //qDebug() << tr("拆分为两个子串失败：") << stockIdAndValues;
+            continue;
+        }
         //将var hq_str_sh601006按"_"拆为3个子串
         QStringList stockIdInfo = stockIdAndValues.at(0).split("_");
-        if(stockIdInfo.count() != 3) continue;
+        if(stockIdInfo.count() != 3){
+            //qDebug() << tr("拆分代码部分失败：") << stockIdAndValues;
+            continue;
+        }
         //取value的列表
         QStringList stockValueList = stockIdAndValues.at(1).split(",");
-        if(stockValueList.count() < 32) continue;
+        if(stockValueList.count() < 32){
+            //qDebug() << tr("value列表数据不对：") << stockIdAndValues;
+            continue;
+        }
         //取Id：sh601006
         QString stockId = stockIdInfo.last();
         stockData stock(stockId, stockValueList);
