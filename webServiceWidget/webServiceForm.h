@@ -10,6 +10,7 @@
 
 class QNetworkAccessManager;
 class QNetworkReply;
+class QProgressDialog;
 
 namespace Ui {
 class webServiceForm;
@@ -136,6 +137,8 @@ private slots:
     void ftpDownLoad(QNetworkReply *reply);
     void ftpUpLoad(QNetworkReply *reply);
 
+    updateDataReadProgress(qint64 bytesReceived, qint64 bytesTotal);
+
 private:
     void init();
     //初始化股票id列表
@@ -187,6 +190,8 @@ private:
     QNetworkAccessManager *ftpDownLoader;
     QNetworkAccessManager *ftpUpLoader;
 
+    QNetworkReply *upReply;
+
     //股票实时数据
     QMap<QString, stockData> stockDataMap;
     //初始化时从文件中读出最近15天的数据
@@ -219,6 +224,7 @@ private:
 
     //已经记录的股票代码，为了不重复记录时做计算
     QStringList stoRecordIdList;
+    QProgressDialog *proDlg;
 
     void sleep(int msec);
 

@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initStatusBar();
     ui->actionSaveModel->setVisible(false);
     ui->actionLoadModel->setVisible(false);
-//    ui->ftpDown->setVisible(false);
+    ui->ftpDown->setVisible(false);
 //    ui->ftpUp->setVisible(false);
 }
 
