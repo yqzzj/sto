@@ -66,6 +66,11 @@ void Widget::newProMoniOne(const QString &stockId, const QString &stockName)
     arg.append(stockId);
     arg.append(stockName);
     pro->start("./moniOneSto.exe", arg);
+
+    if(!pro->waitForStarted()){
+        qDebug() << tr("启动失败");
+        return;
+    }
 }
 
 void Widget::hideSetting(bool is)
@@ -392,6 +397,11 @@ void Widget::on_pushButton_boughtRecord_clicked()
 {
     QProcess *pro = new QProcess(this);
     pro->start("./dataView.exe");
+
+    if(!pro->waitForStarted()){
+        qDebug() << tr("启动失败");
+        return;
+    }
 }
 
 void Widget::on_checkBox_6_clicked(bool checked)

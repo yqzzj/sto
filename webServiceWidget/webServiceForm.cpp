@@ -12,7 +12,7 @@
 #include <QDir>
 #include <QTextCodec>
 #include <QCoreApplication>
-#include <QTimer>
+#include <QSsl>
 
 #define eps 0.00001
 
@@ -69,8 +69,12 @@ void webServiceForm::downloadFile()
     }
 
     QUrl url(urlStr);
+//    QSslConfiguration config;
+//    config.setPeerVerifyMode(QSslSocket::VerifyNone);
+//    config.setProtocol(QSsl::TlsV1_0);
 
     QNetworkRequest request(url);
+//    request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
     manager->get(request);
 }
 
@@ -466,9 +470,12 @@ void webServiceForm::onFinished(QNetworkReply *reply)
     QNetworkReply::NetworkError error = reply->error();
 
     if(error != QNetworkReply::NoError){
-        QMessageBox::information(NULL,tr("错误提示"),tr("从服务器获取数据错误。"));
-        qDebug() << tr("错误代码：") << error;
-        return;
+        //忽略协议错误
+        if(error != QNetworkReply::ProtocolInvalidOperationError){
+            QMessageBox::information(NULL,tr("错误提示"),tr("从服务器获取数据错误。"));
+            qDebug() << tr("错误代码：") << error;
+            return;
+        }
     }
 
     while(!reply->atEnd()){

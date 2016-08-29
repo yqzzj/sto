@@ -22,13 +22,13 @@ MainWindow::MainWindow(QWidget *parent) :
     initLineEdit();
 
     this->setCentralWidget(w);
-    this->setWindowTitle("sto_2.3");
+    this->setWindowTitle("sto_2.4");
 
     initStatusBar();
     ui->actionSaveModel->setVisible(false);
     ui->actionLoadModel->setVisible(false);
-//    ui->ftpDown->setVisible(false);
-//    ui->ftpUp->setVisible(false);
+    ui->ftpDown->setVisible(false);
+    ui->ftpUp->setVisible(false);
 }
 
 MainWindow::~MainWindow()
