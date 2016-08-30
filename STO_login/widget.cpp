@@ -228,6 +228,7 @@ void Widget::loginAccount()
         //用户上线更新登陆标示
         bool ok = DatabaseHandle::updateLoginFlag(username, "1");
         isOk = ok;
+        qDebug() << "isOk: " << isOk;
         if(ok)
         {
             currentLoginID = DatabaseHandle::inquireUserID(username).toInt();

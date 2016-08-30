@@ -145,7 +145,11 @@ int main(int argc, char *argv[])
 //        qssFile.close();
 //    }
 
-    if(!stoLogging()) return -1;
+    int stoLoggingRet = stoLogging();
+    if(!stoLoggingRet){
+        qDebug() << "stoLogging failed." << stoLoggingRet;
+        return -1;
+    }
     MainWindow m;
 //    splash.finish(&m);
     m.show();

@@ -13,6 +13,7 @@
 #include <QTextCodec>
 #include <QCoreApplication>
 #include <QSsl>
+#include <QProgressDialog>
 
 #define eps 0.00001
 
@@ -22,6 +23,8 @@ webServiceForm::webServiceForm(QWidget *parent) :
     stockGroup = 0;
     isDownLoadFile = false;
     isGoing = false;
+    upReply = NULL;
+    proDlg = NULL;
 
     //打开软件时首先创建出今天的交易文件，昨日某涨幅的辅助文件，涨停文件，跌停文件
     //getFilePath(stocksBoughtFileDir);
@@ -71,10 +74,10 @@ void webServiceForm::downloadFile()
     QUrl url(urlStr);
 //    QSslConfiguration config;
 //    config.setPeerVerifyMode(QSslSocket::VerifyNone);
-//    config.setProtocol(QSsl::TlsV1_0);
+//    config.setProtocol(QSsl::TlsV1_1);
 
     QNetworkRequest request(url);
-//    request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
+    request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
     manager->get(request);
 }
 
@@ -124,7 +127,9 @@ void webServiceForm::putDataToFtp()
         url.setPath(pathup + fileName);
         qDebug() << "put path: " << pathup + fileName;
         QNetworkRequest request(url);
-        ftpUpLoader->put(request, data);
+        upReply = ftpUpLoader->put(request, data);
+        connect(upReply,SIGNAL(downloadProgress(qint64,qint64)),
+                this,SLOT(updateDataReadProgress(qint64,qint64)));
     }
 //    QFile file("./assistStocks/2016-07-25");
 //    QByteArray data;
@@ -470,7 +475,6 @@ void webServiceForm::onFinished(QNetworkReply *reply)
     QNetworkReply::NetworkError error = reply->error();
 
     if(error != QNetworkReply::NoError){
-        //忽略协议错误
         if(error != QNetworkReply::ProtocolInvalidOperationError){
             QMessageBox::information(NULL,tr("错误提示"),tr("从服务器获取数据错误。"));
             qDebug() << tr("错误代码：") << error;
@@ -537,6 +541,20 @@ void webServiceForm::ftpUpLoad(QNetworkReply *reply)
     fileNo -= 1;
     putDataToFtp();
     reply->deleteLater();
+}
+
+webServiceForm::updateDataReadProgress(qint64 bytesReceived, qint64 bytesTotal)
+{
+    if(proDlg == NULL){
+        proDlg = new QProgressDialog(this);
+        proDlg->setRange(0, bytesTotal);
+    }else{
+        proDlg->setValue(bytesReceived);
+        if(bytesReceived == bytesTotal){
+            delete proDlg;
+            proDlg = NULL;
+        }
+    }
 }
 
 void webServiceForm::init()

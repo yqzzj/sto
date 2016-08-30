@@ -86,8 +86,6 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    if(argc != 3) return -1;
-
     QTextCodec *codec = QTextCodec::codecForName("UTF-8");
     QTextCodec *codec1 = QTextCodec::codecForName("GB2312");
     if (codec==NULL) codec = QTextCodec::codecForLocale();//有些计算机GBK为空会乱码
