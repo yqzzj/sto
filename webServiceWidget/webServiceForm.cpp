@@ -55,6 +55,7 @@ void webServiceForm::downloadFile()
     //上海证券交易所sh，深圳证券交易所sz
     //上证指数sh000001，深证指数sz399001
     QString urlStr = "http://hq.sinajs.cn/list=";
+<<<<<<< HEAD
     if(stockGroup == 0){
         urlStr += stockIds1;
         stockGroup++;
@@ -66,6 +67,26 @@ void webServiceForm::downloadFile()
         stockGroup++;
     }else if(stockGroup == 3){
         urlStr += stockIds4;
+=======
+//    QString postUrlStr = "http://hq.sinajs.cn";
+//    QByteArray postData;
+
+    if(stockGroup == 0){
+        urlStr += stockIds1;
+//        postData.append("list=" + stockIds1);
+        stockGroup++;
+    }else if(stockGroup == 1){
+        urlStr += stockIds2;
+//        postData.append("list=" + stockIds2);
+        stockGroup++;
+    }else if(stockGroup == 2){
+        urlStr += stockIds3;
+//        postData.append("list=" + stockIds3);
+        stockGroup++;
+    }else if(stockGroup == 3){
+        urlStr += stockIds4;
+//        postData.append("list=" + stockIds4);
+>>>>>>> cccef07ecb7059ad31dafb012af560875f190e85
         stockGroup = 0;
     }else{
         return;
@@ -77,8 +98,18 @@ void webServiceForm::downloadFile()
 //    config.setProtocol(QSsl::TlsV1_1);
 
     QNetworkRequest request(url);
+<<<<<<< HEAD
     request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
     manager->get(request);
+=======
+//    QNetworkRequest request(postUrlStr);
+    //request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
+    manager->get(request);
+//    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+
+//    request.setHeader(QNetworkRequest::ContentLengthHeader, postData.length());
+//    manager->post(request, postData);
+>>>>>>> cccef07ecb7059ad31dafb012af560875f190e85
 }
 
 void webServiceForm::getDataFromFtp()
@@ -639,6 +670,7 @@ void webServiceForm::initStockIdList()
     file.close();
 
     for(int i = 0; i < stockIdList.count(); i++){
+<<<<<<< HEAD
         if(i < 894){
             stockIds1 += stockIdList.at(i);
         }else if(i < 1788){
@@ -646,6 +678,15 @@ void webServiceForm::initStockIdList()
         }else if(i < 2682){
             stockIds3 += stockIdList.at(i);
         }else if(i < 3576){
+=======
+        if(i < 850){
+            stockIds1 += stockIdList.at(i);
+        }else if(i < 1700){
+            stockIds2 += stockIdList.at(i);
+        }else if(i < 2550){
+            stockIds3 += stockIdList.at(i);
+        }else{
+>>>>>>> cccef07ecb7059ad31dafb012af560875f190e85
             stockIds4 += stockIdList.at(i);
         }
     }
