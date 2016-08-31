@@ -28,11 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionSaveModel->setVisible(false);
     ui->actionLoadModel->setVisible(false);
     ui->ftpDown->setVisible(false);
-<<<<<<< HEAD
-//    ui->ftpUp->setVisible(false);
-=======
     ui->ftpUp->setVisible(false);
->>>>>>> cccef07ecb7059ad31dafb012af560875f190e85
 }
 
 MainWindow::~MainWindow()
