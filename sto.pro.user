@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
+<<<<<<< HEAD
 <!-- Written by QtCreator 4.0.2, 2016-08-30T22:35:23. -->
+=======
+<!-- Written by QtCreator 4.0.2, 2016-08-31T18:43:23. -->
+>>>>>>> b1c1938416ee7ee31eea31d5c4df6a8a9a271561
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -64,7 +68,11 @@
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">qt.57.win32_mingw53_kit</value>
    <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">1</value>
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
+<<<<<<< HEAD
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">2</value>
+=======
+   <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">1</value>
+>>>>>>> b1c1938416ee7ee31eea31d5c4df6a8a9a271561
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.0">
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">E:/workspace/qtpro/build-sto-Desktop_Qt_5_7_0_MinGW_32bit-Debug</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
@@ -292,7 +300,11 @@
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">moniOneSto/moniOneSto.pro</value>
     <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseDyldImageSuffix">false</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory"></value>
+<<<<<<< HEAD
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory.default">E:/workspace/qtpro/build-sto-Desktop_Qt_5_7_0_MinGW_32bit-Debug/stoTarget</value>
+=======
+    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory.default">D:/sto-qt4/MonitoringForm/build-sto-Desktop_Qt_5_7_0_MinGW_32bit-Release/stoTarget</value>
+>>>>>>> b1c1938416ee7ee31eea31d5c4df6a8a9a271561
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
@@ -350,7 +362,7 @@
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">STO_login/STO_login.pro</value>
     <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseDyldImageSuffix">false</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory"></value>
-    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory.default"></value>
+    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory.default">D:/sto-qt4/MonitoringForm/build-sto-Desktop_Qt_5_7_0_MinGW_32bit-Release/stoTarget</value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
@@ -408,7 +420,11 @@
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">webServiceWidget/webServiceWidget.pro</value>
     <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseDyldImageSuffix">false</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory"></value>
+<<<<<<< HEAD
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory.default">E:/workspace/qtpro/build-sto-Desktop_Qt_5_7_0_MinGW_32bit-Release/stoTarget</value>
+=======
+    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory.default">D:/sto-qt4/MonitoringForm/build-sto-Desktop_Qt_5_7_0_MinGW_32bit-Release/stoTarget</value>
+>>>>>>> b1c1938416ee7ee31eea31d5c4df6a8a9a271561
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>

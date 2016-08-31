@@ -86,7 +86,7 @@ void qDebugMsgHandler(QtMsgType type, const QMessageLogContext &context, const Q
 }
 #endif
 
-int stoLogging()
+int stoLogin()
 {
     QProcess *pro = new QProcess;
     QStringList arg;
@@ -94,9 +94,9 @@ int stoLogging()
     pro->start("./STO_login.exe", arg);
 
     if(!pro->waitForStarted()){
-        return 0;
+        qDebug() << "stoLoginPro started failed.";
     }else{
-        pro->waitForFinished();
+        pro->waitForFinished(3000000);
         return pro->exitCode();
     }
 }
@@ -145,11 +145,12 @@ int main(int argc, char *argv[])
 //        qssFile.close();
 //    }
 
-    int stoLoggingRet = stoLogging();
-    if(!stoLoggingRet){
-        qDebug() << "stoLogging failed." << stoLoggingRet;
+    int loginRet = stoLogin();
+    if(!loginRet){
+        qDebug() << "login failed.";
         return -1;
     }
+
     MainWindow m;
 //    splash.finish(&m);
     m.show();

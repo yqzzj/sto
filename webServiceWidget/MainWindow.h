@@ -9,6 +9,7 @@
 class QLineEdit;
 class QToolButton;
 class QSystemTrayIcon;
+class QProcess;
 
 namespace Ui {
 class MainWindow;
