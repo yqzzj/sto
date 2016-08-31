@@ -95,22 +95,4 @@ private:
     void initStatusBar();
 };
 
-class LoggingForm : public QWidget
-{
-    Q_OBJECT
-
-public:
-    explicit LoggingForm(QWidget *parent = 0);
-    ~LoggingForm();
-
-    void stoLogin();
-
-private slots:
-    void toLogin(int val);
-
-private:
-    QProcess *stoLoginPro;
-    MainWindow *mainwin;
-};
-
 #endif // MAINWINDOW_H

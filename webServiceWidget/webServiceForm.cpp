@@ -119,6 +119,7 @@ void webServiceForm::putDataToFtp()
     QDir d(assistStocksFileDir);
     QFileInfoList infoList = d.entryInfoList(QDir::Files, QDir::Name);
     int count = infoList.count();
+    qDebug() << "count: " << count;
 
     if(fileNo == -1){
         fileNo = count -2;
@@ -557,6 +558,7 @@ void webServiceForm::ftpUpLoad(QNetworkReply *reply)
 
 webServiceForm::updateDataReadProgress(qint64 bytesReceived, qint64 bytesTotal)
 {
+    qDebug() << "progress";
     if(proDlg == NULL){
         proDlg = new QProgressDialog(this);
         proDlg->setRange(0, bytesTotal);

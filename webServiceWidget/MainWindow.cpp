@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionSaveModel->setVisible(false);
     ui->actionLoadModel->setVisible(false);
     ui->ftpDown->setVisible(false);
-    ui->ftpUp->setVisible(false);
+//    ui->ftpUp->setVisible(false);
 }
 
 MainWindow::~MainWindow()
@@ -284,37 +284,4 @@ void MainWindow::on_ftpDown_triggered()
 void MainWindow::on_ftpUp_triggered()
 {
     w->uploadFtpData();
-}
-
-LoggingForm::LoggingForm(QWidget *parent)
-{
-    stoLoginPro = new QProcess(this);
-}
-
-LoggingForm::~LoggingForm()
-{
-    if(stoLoginPro != NULL){
-        delete stoLoginPro;
-    }
-}
-
-void LoggingForm::stoLogin()
-{
-    QStringList arg;
-    arg.append("stoLogging");
-    stoLoginPro->start("./STO_login.exe", arg);
-
-    if(!stoLoginPro->waitForStarted()){
-        qDebug() << "stoLoginPro started failed.";
-    }else{
-        connect(stoLoginPro, SIGNAL(finished(int)), this, SLOT(toLogin(int)));
-    }
-}
-
-void LoggingForm::toLogin(int val)
-{
-    if(val){
-        mainwin = new MainWindow(this);
-        mainwin->show();
-    }
 }
